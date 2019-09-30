@@ -1,18 +1,43 @@
 package com.platzi.javatests.util;
 
+import com.platzi.javatests.util.StringUtil;
+import org.junit.Assert;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 public class StringUtilTest {
-    public static void main(String[] args) {
-
-        String result = StringUtil.repeat("hola",3);
-        assertEquals(result, "holaholahola");
-
-        String result2 = StringUtil.repeat("hola",1);
-        assertEquals(result2, "hola");
+    @Test
+    public void testRepeatStringOne(){
+        assertEquals("hola", StringUtil.repeat("hola",1));
+    }
+    @Test
+    public void testRepeatStringMultipleTimes(){
+        assertEquals("holaholahola",StringUtil.repeat("hola",3));
+    }
+    @Test
+    public void testRepeatStringZeroTimes(){
+        assertEquals("",StringUtil.repeat("hola",0));
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testRepeatStringNegativeTimes(){
+        StringUtil.repeat("hola",-1);
     }
 
-    private static void assertEquals(String actual, String expected) {
-        if(!actual.equals(expected)){
-            throw new RuntimeException(actual + " is not equal to: " + expected);
-        }
+    @Test
+    public void testStringIsNotEmpty(){
+        assertFalse(StringUtil.isEmpty("hello"));
+    }
+    @Test
+    public void testVoidStringIsEmpty(){
+        assertTrue(StringUtil.isEmpty(""));
+    }
+    @Test
+    public void testNullIsEmpty(){
+        assertTrue(StringUtil.isEmpty(null));
+    }
+    @Test
+    public void testStringWithOnlySpacesIsEmpty(){
+        assertTrue(StringUtil.isEmpty("    "));
     }
 }
