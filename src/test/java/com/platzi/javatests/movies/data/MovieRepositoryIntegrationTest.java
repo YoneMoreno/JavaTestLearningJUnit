@@ -40,24 +40,24 @@ public class MovieRepositoryIntegrationTest {
 
         Collection<Movie> movies = movieRepositoryJdbc.findAll();
         assertThat(movies, is(Arrays.asList(
-                new Movie(1, "Dark Knight", 152, Genre.ACTION),
-                new Movie(2, "Memento", 113, Genre.THRILLER),
-                new Movie(3, "Matrix", 136, Genre.ACTION)
+                new Movie(1, "Dark Knight", 152, Genre.ACTION, "director1"),
+                new Movie(2, "Memento", 113, Genre.THRILLER, "director2"),
+                new Movie(3, "Matrix", 136, Genre.ACTION, "spielberg")
         )));
     }
 
     @Test
     public void loadMovieById() {
         Movie movie = movieRepositoryJdbc.findById(2);
-        assertThat(movie, is(new Movie(2, "Memento", 113, Genre.THRILLER)));
+        assertThat(movie, is(new Movie(2, "Memento", 113, Genre.THRILLER, "director2")));
     }
 
     @Test
     public void insertMovie() {
-        Movie movieToSaveInDb = new Movie("Super 8", 112, THRILLER);
+        Movie movieToSaveInDb = new Movie("Super 8", 112, THRILLER, "ana");
         movieRepositoryJdbc.saveOrUpdate(movieToSaveInDb);
         Movie movieFromDb = movieRepositoryJdbc.findById(4);
-        assertThat(movieFromDb, is(new Movie(4,"Super 8", 112, THRILLER)));
+        assertThat(movieFromDb, is(new Movie(4, "Super 8", 112, THRILLER, "ana")));
     }
 
     @After

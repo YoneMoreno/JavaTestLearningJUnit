@@ -27,15 +27,15 @@ public class MovieServiceShould {
 
         Mockito.when(movieRepository.findAll()).thenReturn(
                 Arrays.asList(
-                        new Movie(1, "Dark Knight", 152, ACTION),
-                        new Movie(2, "Memento", 113, THRILLER),
-                        new Movie(3, "There's Something About Mary", 119, COMEDY),
-                        new Movie(4, "Super 8", 112, THRILLER),
-                        new Movie(5, "Scream", 111, HORROR),
-                        new Movie(6, "Home Alone", 103, COMEDY),
-                        new Movie(7, "Matrix", 136, ACTION),
-                        new Movie(8, "Superwoman", 200, ACTION),
-                        new Movie(9, "Kid super kid", 300, ACTION)
+                        new Movie(1, "Dark Knight", 152, ACTION, "director1"),
+                        new Movie(2, "Memento", 113, THRILLER, "director2"),
+                        new Movie(3, "There's Something About Mary", 119, COMEDY, "director3"),
+                        new Movie(4, "Super 8", 112, THRILLER, "ana"),
+                        new Movie(5, "Scream", 111, HORROR, "luisa"),
+                        new Movie(6, "Home Alone", 103, COMEDY, "maria"),
+                        new Movie(7, "Matrix", 136, ACTION, "spielberg"),
+                        new Movie(8, "Superwoman", 200, ACTION, "nobody"),
+                        new Movie(9, "Kid super kid", 300, ACTION, "nobo")
                 )
         );
         movieService = new MovieService(movieRepository);
@@ -57,7 +57,13 @@ public class MovieServiceShould {
     @Test
     public void returnMoviesWhichContainName() {
         Collection<Movie> movies = movieService.findMoviesByName("super");
-        assertThat(getMoviesIds(movies),is(Arrays.asList(4,8,9)));
+        assertThat(getMoviesIds(movies), is(Arrays.asList(4, 8, 9)));
+    }
+
+    @Test
+    public void returnMoviesWhichContainDirector() {
+        Collection<Movie> movies = movieService.findMoviesByDirector("director");
+        assertThat(getMoviesIds(movies),is(Arrays.asList(1,2,3)));
     }
 
     private List<Integer> getMoviesIds(Collection<Movie> movies) {
