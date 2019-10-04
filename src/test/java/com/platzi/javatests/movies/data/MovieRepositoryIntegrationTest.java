@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static com.platzi.javatests.movies.model.Genre.THRILLER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -49,6 +50,14 @@ public class MovieRepositoryIntegrationTest {
     public void loadMovieById() {
         Movie movie = movieRepositoryJdbc.findById(2);
         assertThat(movie, is(new Movie(2, "Memento", 113, Genre.THRILLER)));
+    }
+
+    @Test
+    public void insertMovie() {
+        Movie movieToSaveInDb = new Movie("Super 8", 112, THRILLER);
+        movieRepositoryJdbc.saveOrUpdate(movieToSaveInDb);
+        Movie movieFromDb = movieRepositoryJdbc.findById(4);
+        assertThat(movieFromDb, is(new Movie(4,"Super 8", 112, THRILLER)));
     }
 
     @After
