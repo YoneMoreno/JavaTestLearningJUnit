@@ -33,7 +33,9 @@ public class MovieServiceShould {
                         new Movie(4, "Super 8", 112, THRILLER),
                         new Movie(5, "Scream", 111, HORROR),
                         new Movie(6, "Home Alone", 103, COMEDY),
-                        new Movie(7, "Matrix", 136, ACTION)
+                        new Movie(7, "Matrix", 136, ACTION),
+                        new Movie(8, "Superwoman", 200, ACTION),
+                        new Movie(9, "Kid super kid", 300, ACTION)
                 )
         );
         movieService = new MovieService(movieRepository);
@@ -50,6 +52,12 @@ public class MovieServiceShould {
     public void returnMoviesByLength() {
         Collection<Movie> movies = movieService.findMoviesByLength(119);
         assertThat(getMoviesIds(movies), is(Arrays.asList(2, 3, 4, 5, 6)));
+    }
+
+    @Test
+    public void returnMoviesWhichContainName() {
+        Collection<Movie> movies = movieService.findMoviesByName("super");
+        assertThat(getMoviesIds(movies),is(Arrays.asList(4,8,9)));
     }
 
     private List<Integer> getMoviesIds(Collection<Movie> movies) {
